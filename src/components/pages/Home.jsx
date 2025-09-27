@@ -56,7 +56,7 @@ const Home = () => {
 
 
 
-        <div className="  grid  grid-cols-2 text-center sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4  mt-10 gap-6">
+        <div className="  grid  grid-cols-1 text-center sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4  mt-10 gap-6">
           {products.map((product) => (
             <div
               key={product.id}
