@@ -3,7 +3,7 @@ import {
   removeCart,
   clearCart,
   incrementItem,
-  decrementItem,
+  decrementItem
 } from "../../app/features/cartSlice";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,27 +13,37 @@ const Cart = () => {
   const items = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
 
+  const totalItems = items.reduce((acc, item) => acc + item.quantity, 0);
+  const totalPrice = items
+    .reduce((acc, item) => acc + item.price * item.quantity, 0)
+    .toFixed(2);
+
   return (
     <div className="p-4 min-h-screen">
+      {/* Cart Heading */}
       <div className="flex items-center justify-center mt-5">
         <FontAwesomeIcon
           icon={faShoppingCart}
           className="text-3xl text-blue-600 mr-2"
         />
-        <h1>Cart</h1>
+        <h2 className="text-2xl font-bold text-center">
+          Your Cart ({totalItems} items)
+        </h2>
       </div>
-      <hr />
+
+      {/* Empty Cart */}
       {items.length === 0 ? (
         <p className="text-center text-2xl text-gray-500 mt-10">
           Your cart is empty
         </p>
       ) : (
         <>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-3 sm:gap-8 mt-8 mx-auto sm:px-4 px-2 py-2 sm:py-8">
+          {/* Cart Items */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-3 sm:gap-8 mt-8  sm:px-4 px-2 py-2 sm:py-8">
             {items.map((item) => (
               <div
                 key={item.id}
-                className="text-black dark:text-white rounded-lg pt-2 pl-2 pr-2 flex flex-col justify-between transition-transform hover:scale-105 duration-200 border"
+                className="text-black dark:text-white rounded-lg pt-2 pl-2 pr-2 flex flex-col justify-between transition-transform hover:scale-105 duration-200 "
               >
                 <img
                   src={item.image}
@@ -46,31 +56,31 @@ const Cart = () => {
                 <p className="text-green-600 mx-4 dark:text-green-400 font-bold text-lg sm:mb-4">
                   ${item.price}
                 </p>
-                <div className="flex justify-center items-center gap-2 mt-2  ">
+                <div className="flex justify-center items-center gap-3 mt-2">
                   <button
                     onClick={() => dispatch(decrementItem(item.id))}
-                    className="px-2 py-1 bg-red-200 rounded w-32"
+                    className="px-2 py-1 bg-red-200 rounded w-full "
                   >
                     -
                   </button>
-
+                  <span>{item.quantity}</span>
                   <button
                     onClick={() => dispatch(incrementItem(item.id))}
-                    className="px-2 py-1 bg-green-200 rounded w-32"
+                    className="px-2 py-1 w-full bg-green-200 rounded m-6"
                   >
                     +
                   </button>
                 </div>
                 <button
                   onClick={() => dispatch(removeCart(item.id))}
-                  className="mt-2 text-md hover:text-blue-600  text-red-600  mb-4"
+                  className="p-3 text-sm  text-red-600 hover:text-blue-700 "
                 >
                   Remove
                 </button>
               </div>
             ))}
           </div>
-          <hr />
+<hr />
           {/* Bottom Section */}
           <div className="mt-10 flex flex-col items-center gap-4">
             <button
@@ -79,6 +89,9 @@ const Cart = () => {
             >
               Clear Cart
             </button>
+            <div className="text-xl font-bold">
+              Total: <span className="text-green-600">${totalPrice}</span>
+            </div>
           </div>
         </>
       )}
