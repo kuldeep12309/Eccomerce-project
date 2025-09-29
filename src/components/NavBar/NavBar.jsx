@@ -1,25 +1,19 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import Theme from "../Theme";
+import Theme from "../theme/Theme";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
-
-
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
-
-
 
 function NavBar() {
   const cartItems = useSelector((state) => state.cart.items);
-const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
-  
   const expand = "md";
 
   const [show, setShow] = useState(false);
@@ -66,13 +60,14 @@ const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
                 className="ms-auto   justify-content-end  pe-5  gap-8 "
                 navbarScroll
               >
-                <Nav.Link 
+                <Nav.Link
                   as={Link}
                   to="/"
                   className="text-white "
                   onClick={handleClose}
                 >
-                  <FontAwesomeIcon icon={faHouse} size="lg"/>Home
+                  <FontAwesomeIcon icon={faHouse} size="lg" />
+                  Home
                 </Nav.Link>
                 <Nav.Link
                   as={Link}
@@ -82,22 +77,19 @@ const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
                 >
                   Products
                 </Nav.Link>
-               <Nav.Link
-  as={Link}
-  to="/cart"
-  className="text-white position-relative"
-  onClick={handleClose}
->
- Cart <FontAwesomeIcon icon={faCartPlus} size="lg"  />
-  {totalQuantity > 0 && (
-<span className="absolute -top-1 -right-1 bg-red-700 text-white rounded-full text-xs px-1.5 py-0.5">
-
-  {totalQuantity}
-</span>
-
-   
-  )}
-</Nav.Link>
+                <Nav.Link
+                  as={Link}
+                  to="/cart"
+                  className="text-white position-relative"
+                  onClick={handleClose}
+                >
+                  Cart <FontAwesomeIcon icon={faCartPlus} size="lg" />
+                  {totalQuantity > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-red-700 text-white rounded-full text-xs px-1.5 py-0.5">
+                      {totalQuantity}
+                    </span>
+                  )}
+                </Nav.Link>
                 <Nav.Link
                   as={Link}
                   to="Login"
@@ -106,11 +98,10 @@ const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
                 >
                   Login
                 </Nav.Link>
-                
-                
-<Nav.Link  className="text-white">
-  <Theme/>
-</Nav.Link>
+
+                <Nav.Link className="text-white">
+                  <Theme />
+                </Nav.Link>
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>

@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-
-
 body.light {
     background-color: aliceblue;
     color: black;
